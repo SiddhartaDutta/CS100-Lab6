@@ -1,4 +1,5 @@
 #include "spreadsheet.hpp"
+#include "select.hpp"
 
 #include "gtest/gtest.h"
 TEST(ContainsTest, ContainsOneLetter){
@@ -36,6 +37,16 @@ Spreadsheet sheet;
     sheet.add_row({"David","Dole","22","electrical engineering"});
     sheet.add_row({"Dominick","DOLE","22","communications"});
     sheet.add_row({"George","Genius","9","astrophysics"});
+ 	string one = "Diane DOLE 20 computer engineering \n";
+        string two = "Dominick DOLE 22 communications \n";
+        string printed = one +two;
+
+        stringstream ss;
+        sheet.set_selection(new Select_Contains(&sheet, "Last", "DOLE"));
+        sheet.print_selection(ss);
+
+        EXPECT_EQ(ss.str(), printed);
+}
 TEST(AndTest,BothTrue) {
     Spreadsheet sheet;
     sheet.set_column_names({"First","Last","Age","Major"});
@@ -127,16 +138,6 @@ TEST(AndTest,PartialWord) {
     sheet.set_selection(x);
 
     EXPECT_TRUE(x->select(&sheet, 8));
-}
-        string one = "Diane DOLE 20 computer engineering \n";
-        string two = "Dominick DOLE 22 communications \n";
-        string printed = one +two;
-
-        stringstream ss;
-        sheet.set_selection(new Select_Contains(&sheet, "Last", "DOLE"));
-        sheet.print_selection(ss);
-
-        EXPECT_EQ(ss.str(), printed);
 }
 
 int main(int argc, char **argv) {
