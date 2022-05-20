@@ -251,6 +251,94 @@ TEST (SelectTest, OrAllCaps) {
     EXPECT_EQ(out.str(), expected);
 }
 
+TEST (SelectTest, NormalNot) {
+    Spreadsheet sheet;
+    sheet.set_column_names({"First", "Last", "Position"});
+    sheet.add_row({"Lebron", "James", "Power Forward"});
+    sheet.add_row({"Steph", "Curry", "Point Guard"});
+    sheet.add_row({"Dame", "Lillard", "Point Guard"});
+    sheet.add_row({"Joel", "Embiid", "Center"});
+    sheet.add_row({"Anthony", "Davis", "Center"});
+    sheet.add_row({"Kobe", "Bryant", "Shooting Guard"});
+
+    stringstream out;
+    sheet.set_selection(new Select_Not(new Select_Contains(&sheet, "First", "e")));
+    sheet.print_selection(out);
+
+    string expected = "Anthony Davis Center \n";
+
+    EXPECT_EQ(out.str(), expected);
+}
+
+TEST (SelectTest, CapitalNot) {
+    Spreadsheet sheet;
+    sheet.set_column_names({"First", "Last", "Position"});
+    sheet.add_row({"Lebron", "James", "Power Forward"});
+    sheet.add_row({"Steph", "Curry", "Point Guard"});
+    sheet.add_row({"Dame", "Lillard", "Point Guard"});
+    sheet.add_row({"Joel", "Embiid", "Center"});
+    sheet.add_row({"Anthony", "Davis", "Center"});
+    sheet.add_row({"Kobe", "Bryant", "Shooting Guard"});
+
+    stringstream out;
+    sheet.set_selection(new Select_Not(
+      new Select_Or(
+	new Select_Contains(&sheet, "First", "L"),
+	new Select_Contains(&sheet, "Last", "L"))));
+    sheet.print_selection(out);
+
+    string expected = "Steph Curry Point Guard \nJoel Embiid Center \nAnthony Davis Center \nKobe Bryant Shooting Guard \n";
+
+    EXPECT_EQ(out.str(), expected);
+}
+
+TEST (SelectTest, NotWrongColumn) {
+    Spreadsheet sheet;
+    sheet.set_column_names({"First","Second","Third"});
+    sheet.add_row({"one", "two", "three"});
+    sheet.add_row({"four", "five", "six"});
+    sheet.add_row({"seven", "eight", "nine"});
+
+    stringstream out;
+    sheet.set_selection(new Select_Not(new Select_Contains(&sheet, "apple", "x")));
+    sheet.print_selection(out);
+
+    string expected = "one two three \nfour five six \nseven eight nine \n";;
+
+    EXPECT_EQ(out.str(), expected);
+}
+
+TEST (SelectTest, NotNoReturn) {
+    Spreadsheet sheet;
+    sheet.set_column_names({"First","Second","Third"});
+    sheet.add_row({"one", "two", "three"});
+    sheet.add_row({"foure", "five", "sixe"});
+    sheet.add_row({"seven", "eight", "nine"});
+
+    stringstream out;
+    sheet.set_selection(new Select_Not(new Select_Contains(&sheet, "First", "e")));
+    sheet.print_selection(out);
+
+    string expected = "";
+
+    EXPECT_EQ(out.str(), expected);
+}
+
+TEST (SelectTest, NotAllCaps) {
+    Spreadsheet sheet;
+    sheet.set_column_names({"FIRST", "SECOND", "THIRD"});
+    sheet.add_row({"ONE", "TWO", "THREE"});
+    sheet.add_row({"FOUR", "FIVE", "SIX"});
+    sheet.add_row({"SEVEN", "EIGHT", "NINE"});
+
+    stringstream out;
+    sheet.set_selection(new Select_Not(new Select_Contains(&sheet, "SECOND", "FIVE")));
+    sheet.print_selection(out);
+
+    string expected = "ONE TWO THREE \nSEVEN EIGHT NINE \n";
+
+    EXPECT_EQ(out.str(), expected);
+}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
