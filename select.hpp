@@ -38,50 +38,52 @@ public:
     virtual bool select(const std::string& s) const = 0;
 };
 
-class Select_Not: public Select
-{
-private:
-	select* input;
-public:
-	Select_Not(select* selection){
-		input = selection;
-~Select_Not()
-{
-	delete input;
-}
-bool select(const Spreadsheet* sheet, int row) const{
-	if(input -> select(sheet, row)){
-		return false;
-}
-	else{
-        return true;
-	}
-}
+class Select_Not: public Select{
+	private:
+		Select* input;
+	public:
+		Select_Not(select* selection){
+			input = selection;
+		}
+
+		~Select_Not(){
+			delete input;
+		}
+
+		bool select(const Spreadsheet* sheet, int row) const{
+			if(input -> select(sheet, row)){
+				return false;
+			}
+			else{
+        			return true;
+			}
+		}
+};
 	
 
 class Select_Or: public Select{
-private:
-   select* input1;
-   select* input2;
-public:
-   Select_Or(select* in1, select* in2){
-	input1 = in1;
-	input2 = in2;
-}
-  ~Select_Or(){
-	delete input1;
-	delete input2;
-}
+	private:
+   		Select* input1;
+   		Select* input2;
+	public:
+   		Select_Or(select* in1, select* in2){
+			input1 = in1;
+			input2 = in2;
+		}
+  		~Select_Or(){
+			delete input1;
+			delete input2;
+		}
 
-bool select(const Spreadsheet* sheet, int row) const{
-	if((input1->select(sheet,row))||(input2->select(sheet,row))){
-		return true;
-	}
-	else{
-	return false;
-}
-}
-}  
+		bool select(const Spreadsheet* sheet, int row) const{
+			if((input1->select(sheet,row))||(input2->select(sheet,row))){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+};  
 
 
 
