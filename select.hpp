@@ -38,4 +38,29 @@ public:
     virtual bool select(const std::string& s) const = 0;
 };
 
+class Select_Not: public Select
+{
+private:
+	select* input;
+public:
+	Select_Not(select* selection){
+		input = selection;
+~Select_Not()
+{
+	delete input;
+}
+bool select(const Spreadsheet* sheet, int row) const{
+	if(input -> select(sheet, row)){
+		return false;
+}	
+	else{
+	return true;
+	}
+}  
+
+}
+
+
+
+};
 #endif //__SELECT_HPP__
