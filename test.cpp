@@ -140,7 +140,7 @@ TEST(AndTest,PartialWord) {
     EXPECT_TRUE(x->select(&sheet, 8));
 }
 
-TEST(SelectTest, TestNormalOr){
+TEST(OrTest, TestNormalOr){
     Spreadsheet sheet;
     sheet.set_column_names({"First","Second","Third"});
     sheet.add_row({"one", "two", "three"});
@@ -156,7 +156,7 @@ TEST(SelectTest, TestNormalOr){
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST(SelectTest, TestCaptialOr) {
+TEST(OrTest, TestCaptialOr) {
     Spreadsheet sheet;
     sheet.set_column_names({"Front", "Last"});
     sheet.add_row({"Rishab", "Dudhia"});
@@ -171,7 +171,7 @@ TEST(SelectTest, TestCaptialOr) {
     EXPECT_EQ(out.str(), expected);
 }
     
-TEST(SelectTest, OrWrongColumn){
+TEST(OrTest, OrWrongColumn){
     Spreadsheet sheet;
     sheet.set_column_names({"First","Last","Age","Major"});
     sheet.add_row({"Amanda","Andrews","22","business"});
@@ -193,7 +193,7 @@ TEST(SelectTest, OrWrongColumn){
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, ORandAND) {
+TEST (OrTest, ORandAND) {
     Spreadsheet sheet;
     sheet.set_column_names({"First", "Last", "Position"});
     sheet.add_row({"Lebron", "James", "Power Forward"});
@@ -216,7 +216,7 @@ TEST (SelectTest, ORandAND) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, OrNotFound) {
+TEST (OrTest, OrNotFound) {
     Spreadsheet sheet;
     sheet.set_column_names({"First", "Last", "Position"});
     sheet.add_row({"Lebron", "James", "Power Forward"});
@@ -235,7 +235,7 @@ TEST (SelectTest, OrNotFound) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, OrAllCaps) {
+TEST (OrTest, OrAllCaps) {
     Spreadsheet sheet;
     sheet.set_column_names({"FIRST", "SECOND", "THIRD"});
     sheet.add_row({"ONE", "TWO", "THREE"});
@@ -251,7 +251,7 @@ TEST (SelectTest, OrAllCaps) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, NormalNot) {
+TEST (NotTest, NormalNot) {
     Spreadsheet sheet;
     sheet.set_column_names({"First", "Last", "Position"});
     sheet.add_row({"Lebron", "James", "Power Forward"});
@@ -270,7 +270,7 @@ TEST (SelectTest, NormalNot) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, CapitalNot) {
+TEST (NotTest, CapitalNot) {
     Spreadsheet sheet;
     sheet.set_column_names({"First", "Last", "Position"});
     sheet.add_row({"Lebron", "James", "Power Forward"});
@@ -292,7 +292,7 @@ TEST (SelectTest, CapitalNot) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, NotWrongColumn) {
+TEST (NotTest, NotWrongColumn) {
     Spreadsheet sheet;
     sheet.set_column_names({"First","Second","Third"});
     sheet.add_row({"one", "two", "three"});
@@ -308,7 +308,7 @@ TEST (SelectTest, NotWrongColumn) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, NotNoReturn) {
+TEST (NotTest, NotNoReturn) {
     Spreadsheet sheet;
     sheet.set_column_names({"First","Second","Third"});
     sheet.add_row({"one", "two", "three"});
@@ -324,7 +324,7 @@ TEST (SelectTest, NotNoReturn) {
     EXPECT_EQ(out.str(), expected);
 }
 
-TEST (SelectTest, NotAllCaps) {
+TEST (NotTest, NotAllCaps) {
     Spreadsheet sheet;
     sheet.set_column_names({"FIRST", "SECOND", "THIRD"});
     sheet.add_row({"ONE", "TWO", "THREE"});
