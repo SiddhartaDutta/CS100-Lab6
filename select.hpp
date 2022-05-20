@@ -85,7 +85,7 @@ class Select_Or: public Select{
 		}
 };  
 
-class Select_Add : public Select{
+class Select_Contains : public Select{
 
 	private:
 		int col_num;
@@ -113,6 +113,30 @@ class Select_Add : public Select{
 
 };
 
+class Select_And : public Select{
 
+	private:
+		Select* input1;
+		Select* input2;
+
+	public:
+		Select_And(Select* in1, Select* in2){
+			input1 = in1;
+			input2 = in2;
+		}
+
+		~Select_And(){
+			delete input1;
+			delete input2;
+		}
+
+		bool select(const Spreadsheet* sheet, int row) const {
+			if(input1->select(sheet, row) && input2->select(sheet, row)){
+				return true;
+			}
+			return false;
+		}
+
+};
 
 #endif //__SELECT_HPP__
