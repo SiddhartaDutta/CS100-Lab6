@@ -3,6 +3,8 @@
 
 #include <cstring>
 
+using namespace std;
+
 class Select
 {
 public:
@@ -42,7 +44,7 @@ class Select_Not: public Select{
 	private:
 		Select* input;
 	public:
-		Select_Not(select* selection){
+		Select_Not(Select* selection){
 			input = selection;
 		}
 
@@ -66,7 +68,7 @@ class Select_Or: public Select{
    		Select* input1;
    		Select* input2;
 	public:
-   		Select_Or(select* in1, select* in2){
+   		Select_Or(Select* in1, Select* in2){
 			input1 = in1;
 			input2 = in2;
 		}
