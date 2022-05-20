@@ -52,15 +52,37 @@ public:
 bool select(const Spreadsheet* sheet, int row) const{
 	if(input -> select(sheet, row)){
 		return false;
-}	
+}
 	else{
-	return true;
+        return true;
 	}
-}  
+}
+	
 
+class Select_Or: public Select{
+private:
+   select* input1;
+   select* input2;
+public:
+   Select_Or(select* in1, select* in2){
+	input1 = in1;
+	input2 = in2;
+}
+  ~Select_Or(){
+	delete input1;
+	delete input2;
 }
 
+bool select(const Spreadsheet* sheet, int row) const{
+	if((input1->select(sheet,row))||(input2->select(sheet,row))){
+		return true;
+	}
+	else{
+	return false;
+}
+}
+}  
 
 
-};
+
 #endif //__SELECT_HPP__
