@@ -85,6 +85,34 @@ class Select_Or: public Select{
 		}
 };  
 
+class Select_Add : public Select{
+
+	private:
+		int col_num;
+		string name;
+
+	public:
+		Select_Contains(const Spreadsheet* sheet, const string& column, const string& name){
+
+			col_num = sheet->get_column_by_name(column);
+			this->name = name;		
+
+		}
+
+		bool select(const Spreadsheet* sheet, int row) const{
+		
+			if(col_num != -1){
+				if((sheet->cell_data(row, col_num)).find(name) != std::string::npos){
+					return true;
+				}
+			}
+
+			return false;
+
+		}
+
+};
+
 
 
 #endif //__SELECT_HPP__
