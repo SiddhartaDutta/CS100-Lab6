@@ -42,7 +42,7 @@ class Select_Not: public Select{
 	private:
 		Select* input;
 	public:
-		Select_Not(select* selection){
+		Select_Not(Select* selection){
 			input = selection;
 		}
 
@@ -66,7 +66,7 @@ class Select_Or: public Select{
    		Select* input1;
    		Select* input2;
 	public:
-   		Select_Or(select* in1, select* in2){
+   		Select_Or(Select* in1, Select* in2){
 			input1 = in1;
 			input2 = in2;
 		}
@@ -89,10 +89,10 @@ class Select_Contains : public Select{
 
 	private:
 		int col_num;
-		string name;
+		String name;
 
 	public:
-		Select_Contains(const Spreadsheet* sheet, const string& column, const string& name){
+		Select_Contains(const Spreadsheet* sheet, const String& column, const string& name){
 
 			col_num = sheet->get_column_by_name(column);
 			this->name = name;		
