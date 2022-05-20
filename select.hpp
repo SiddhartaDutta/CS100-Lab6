@@ -3,6 +3,8 @@
 
 #include <cstring>
 
+using namespace std;
+
 class Select
 {
 public:
@@ -89,10 +91,10 @@ class Select_Contains : public Select{
 
 	private:
 		int col_num;
-		String name;
+		string name;
 
 	public:
-		Select_Contains(const Spreadsheet* sheet, const String& column, const string& name){
+		Select_Contains(const Spreadsheet* sheet, const string& column, const string& name){
 
 			col_num = sheet->get_column_by_name(column);
 			this->name = name;		
